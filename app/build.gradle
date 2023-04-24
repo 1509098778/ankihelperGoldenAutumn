@@ -1,0 +1,189 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
+
+android {
+    compileSdk 31
+    buildToolsVersion '31.0.0'
+    defaultConfig {
+        applicationId "com.mmjang.ankihelper"
+        minSdk ANDROID_MIN_SDK
+        targetSdkVersion ANDROID_TARGET_SDK_VERSION
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        setProperty("archivesBaseName", "Anki 划词助手" + " " + versionName)
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword 'ss4235087'
+            storeFile file('/Users/ss/Documents/keys/ankihelperKey.jks')
+            storePassword 'ss4235087'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        //这说明，安装debug时候，主城release包
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+    ndkVersion '21.4.7075529'
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/CONTRIBUTORS.md'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+//    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+
+    //noinspection GradleCompatible
+//    implementation "com.android.support:appcompat-v7:$ANDROID_LIB_VERSION"
+//    implementation "com.android.support:recyclerview-v7:$ANDROID_LIB_VERSION"
+//    implementation "com.android.support:cardview-v7:$ANDROID_LIB_VERSION"
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    //api 'com.ichi2.anki:api:1.1.0alpha5'
+    //noinspection GradleDynamicVersion
+    api 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
+    api 'org.litepal.android:core:1.5.1'
+//    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'me.everything:overscroll-decor-android:1.0.4'
+    implementation 'org.apmem.tools:layouts:1.10@aar'
+    implementation 'org.jsoup:jsoup:1.10.2'
+    implementation 'com.balysv:material-ripple:1.0.2'
+    implementation 'me.rosuh:AndroidFilePicker:0.8.2'
+    implementation 'com.google.guava:guava:23.0-android'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    //implementation project(':folioreader')
+//    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+//    implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.squareup.okhttp3:okhttp:4.3.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation "com.tonyodev.fetch2:fetch2:2.3.6"
+    implementation 'com.atilika.kuromoji:kuromoji-ipadic:0.9.0'
+    implementation 'com.danikula:videocache:2.7.1'
+    implementation 'org.codehaus.plexus:plexus-utils:3.2.1'
+    // https://mavenlibs.com/maven/dependency/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    implementation 'com.github.yueban:EasyFloat:1.2.8-yueban'
+    implementation 'com.trello:rxlifecycle-components:0.6.1'
+    implementation 'cz.adaptech:tesseract4android:4.1.1'
+
+
+//    implementation ('tokyo.northside:mdict4j:0.4.0', {
+//        exclude group: 'com.google.code.findbugs'
+//        exclude module: 'annotations'
+//    })
+
+//    implementation('io.github.eb4j:mdict4j:0.3.1', {
+//        exclude group: 'com.google.code.findbugs'
+//        exclude module: 'annotations'    })
+////    implementation files('/Users/ss/gits/ankihelper/libs/mdict4j-0.4.0.jar')
+////    implementation("org.jetbrains:annotations:23.0.0")
+//    implementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
+//    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
+//    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.1")
+//    implementation("org.bouncycastle:bcprov-jdk15on:1.70")
+//    implementation("org.anarres.lzo:lzo-core:1.0.6", {
+//        exclude group: 'com.google.code.findbugs'
+//        exclude module: 'annotations'
+//    })
+//    implementation("com.github.takawitter:trie4j:0.9.8")
+//    // use Caffeine cache for java 8 (3.x requires Java11)
+//    implementation("com.github.ben-manes.caffeine:caffeine:2.9.3")
+//
+////    implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
+//    implementation files ('/usr/local/Cellar/openjdk@8/1.8.0+352/libexec/openjdk.jdk/Contents/Home/jre/lib/rt.jar')
+
+
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'me.everything:overscroll-decor-android:1.0.4'
+    implementation 'com.trello:rxlifecycle-components:0.6.1'
+
+    //mlkit
+    // To recognize Latin script
+    api 'com.google.mlkit:text-recognition:16.0.0-beta6'
+    // To recognize Chinese script
+    api 'com.google.mlkit:text-recognition-chinese:16.0.0-beta6'
+    // To recognize Devanagari script
+    api 'com.google.mlkit:text-recognition-devanagari:16.0.0-beta6'
+    // To recognize Japanese script
+    api 'com.google.mlkit:text-recognition-japanese:16.0.0-beta6'
+    // To recognize Korean script
+    api 'com.google.mlkit:text-recognition-korean:16.0.0-beta6'
+
+
+    //MathxView
+//    implementation 'com.github.mohd-naushaaad:mathview:1.0.2'
+//    implementation 'io.github.kexanie.library:MathView:0.0.6'
+    implementation 'com.x5dev:chunk-templates:3.6.2'
+    implementation 'org.apache.commons:commons-text:1.9'
+
+    //layout
+    implementation 'cn.wolfspider:autowraplinelayout:1.0.1'
+
+    //perform edit
+//    implementation 'ren.qinc.edit:lib:0.0.5'
+
+    //html2bitmap
+    implementation 'com.izettle:html2bitmap:1.9'
+
+
+}
+
+//android.applicationVariants.all { variant ->
+//    if (variant.buildType.name == 'release') {//release版本
+//        variant.getMergeAssetsProvider().get().doLast {
+//            //屏蔽assets文件夹下的所有wordbean.db数据库文件
+//            delete(fileTree(dir: variant.mergeAssets.outputDir, includes: ['databases/wordbean.db']))
+//        }
+//    }
+//}
