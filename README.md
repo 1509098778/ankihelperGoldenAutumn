@@ -1,6 +1,6 @@
 # Anki 划词助手 - 用户手册
 
-距离开始开发“Anki 划词助手”已经过去接近一年半了，可是到现在还没有一篇像样的教程之类的东西，今天下了一个大大的决心，准备写一篇出来。
+[mmjang/ankihelper](https://github.com/mmjang/ankihelper) 的分支
 
 目录
 =================
