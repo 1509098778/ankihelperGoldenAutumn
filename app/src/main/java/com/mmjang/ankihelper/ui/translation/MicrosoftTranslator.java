@@ -36,7 +36,7 @@ public class MicrosoftTranslator implements Translator {
     private static Translator translator;
 
     //2.0
-    private final String USER_MICROSOFT_APP_ID = "DB50E2E9FBE2E92B103E696DCF4E3E512A8826FB";
+    private final String USER_MICROSOFT_APP_ID = "";
     private static final String BASE_URL = "https://api.microsofttranslator.com/V2/Ajax.svc/Translate?appId=%s&oncomplete=?&text=%s&from=%s&to=%s";
 
     //3.0
